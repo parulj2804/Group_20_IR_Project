@@ -1,0 +1,65 @@
+{% extends 'services_base.html' %}
+
+{% block title %}
+Video Result
+{% endblock %}
+
+{% block service_content %}
+<div class="p-5 mb-4 bg-light rounded-3">
+  <div class="container-fluid py-5">
+    <section>
+      <div class="table-responsive">
+
+        {% if type=='query_result' %}
+        <table class="table table-striped table-hover">
+          <tr>
+            <th>Video Title</th>
+            <th>Video Text</th>
+            <th>Hateful or Not</th>
+          </tr>
+          {% for index,row in result.iterrows() %}
+            <tr>
+              <td><a href="{{ row['video_url'] }}">{{ row['title'] }}</a></td>
+              <td>{{ row['video_text'] }}
+              <td>{{ row['prediction'] }}</td>
+            </tr>
+          {% endfor %}
+        </table>
+
+        {% endif %}
+
+        {% if type=='youtube_video_result' %}
+        <table class="table table-striped table-hover">
+          <tr>
+            <th>Video ID</th>
+            <th>Video Text</th>
+            <th>Hateful or Not</th>
+          </tr>
+          {% for index,row in result.iterrows() %}
+            <tr>
+              <td><a href="https://www.youtube.com/watch?v={{row['videoId']}}">{{ row['videoId'] }}</a></td>
+              <td>{{ row['video_text'] }}
+              <td>{{ row['prediction'] }}</td>
+            </tr>
+          {% endfor %}
+        </table>
+
+        {% endif %}
+
+
+{% if type=='video_result' %}
+        <div class="p-5 mb-4 bg-light rounded-3">
+          <div class="container-fluid py-5">
+              <p> {{ prediction[0] }} </p>
+              <h2 class="display-5 fw-bold">{{ prediction[1] }}</h2>
+          </div>
+        </div>
+{% endif %}
+
+
+      </div>
+    </section>
+  </div>
+</div>
+
+{% endblock %}

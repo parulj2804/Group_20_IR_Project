@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-sans-serif;
+}
+
+section{
+  position: relative;;
+  width: 100%;
+  min-height: 100vh;
+  display:flex;
+  flex-direction: column;
+  justify-content: flex;
+  background: url(../images/pixabay_noattribution_aggression-gfbee812e7_1920.jpg)no-repeat;
+  margin:auto auto;
+  background-position: center center;
+  background-color: gray;
+}
+
+header{
+  position: relative;
+  top:0;
+  width: 100%;
+  padding: 30px 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header .logo{
+  position: relative;
+  max-height: 10px;
+  color: #fff;
+  font-size: 30px;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+header .logo img{
+  max-width: 100px;
+  max-height: 100px;
+}
+
+header .navigation a{
+  color: #fff;
+  background: #050308;
+  text-decoration: none;
+  font-weight: 800;
+  letter-spacing: 1px;
+  padding: 2px 15px;
+  border-radius: 30px;
+  transition: 1s;
+  transition-property: background;
+}
+
+
+header .navigation a:not(:last-child){
+  margin-right: 30px;
+}
+
+header .navigation a:hover{
+  background: #ff6064;
+}
+
+.content{
+  background-color: rgba(255,255,255,0.8);
+  max-width: 1000px;
+  margin: 60px 100px;
+  padding: 20px 15px;
+  border-radius: 30px;
+}
+
+.content .info h2{
+  color: #d4347e;
+  font-size: 55px;
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 2px;
+  line-height: 60px;
+  margin-bottom: 30px;
+}
+
+.content .info h2 span{
+  color: #a142f8;
+  font-size: 50px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.content .info h2 p{
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 40px;
+}
+
+.content .info .leads{
+  margin: 30px;
+}
+
+.content .info-btn{
+  color:#fff;
+  background: #c43d7f;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding:10px 20px;
+  border-radius:15px;
+  transition: 1s;
+  transition-property: background;
+
+}
+
+.content .info-btn:hover{
+  background: #a83bf9;
+  transform: scale(1.5);
+}

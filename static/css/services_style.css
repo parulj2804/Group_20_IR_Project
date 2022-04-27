@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
+*{
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+  font-family: 'Ubuntu',sans-serif;
+}
+.navigation{
+  background: #7938ab;
+  color: #ffff;
+  transition: 1s;
+  font-family: 'Ubuntu',sans-serif;
+  border-right:10px solid var(--purple);
+}
+
+.navigation ul li:hover{
+  background: #a03a8d;
+  color: #7938ab;
+  transition: 1s;
+  border-radius: 30px;
+  padding-left: 5px;
+}
+
+.content{
+  top: 50px;
+}
+
+.text_input{
+  height:40px;
+  border-radius: 40px;
+  padding:5px 20px;
+  padding-left: 35px;
+  font-size: 18px;
+  outline: none;
+  border: 1px solid #0000;
+  margin: 20px;
+}
+
+.submit_button{
+  background:#c134a4;
+}
+.submit_button:hover{
+  background:#7938ab;
+  animation: 1s;
+}
+
+
+input[type="date"]{
+    background-color: #0080ff;
+    padding: 15px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    font-family: "Roboto Mono",monospace;
+    color: #ffffff;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+}
+::-webkit-calendar-picker-indicator{
+    background-color: #ffffff;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 3px;
+}

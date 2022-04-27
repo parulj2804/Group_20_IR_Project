@@ -1,0 +1,429 @@
+{% extends 'services_base.html' %}
+
+{% block title %}
+Hate or Not
+{% endblock %}
+
+
+{% block service_content %}
+<!-- TODO: Have Three buttons on a floating large card, one clicking one of the button display respective div on that card -->
+<!-- <div class="">
+  <form action="/service_classify_text" method="post">
+    <textarea name="query" rows="8" cols="80" placeholder="Enter Text To Identify if Hate Text or Not"></textarea>"
+    <input type="submit" name="submit_text" value="Submit">
+  </form>
+  <h3>{{ prediction }}</h3>
+</div>
+<div class="">
+  <form action="/xx">
+    Upload an Audio File
+    <!-- TODO: File Format Validation -->
+    <!-- <input type="file" id="myFile" name="filename">
+    <input type="submit">
+  </form>
+</div>
+<div class="">
+  <form action="/xx"> -->
+    <!-- TODO: File Format Validation -->
+    <!-- Upload an Video File
+    <input type="file" id="myFile" name="filename">
+    <input type="submit">
+  </form> -->
+<!-- </div> -->
+
+
+
+<div class="p-5 mb-6 bg-light rounded-3">
+
+  <div class="card-group" id="div_select_menu" style="padding:30px">
+    <button type="button" name="button" id="button_text_classifier" class="submit_button" >
+      <div class="card" style="background:transparent;">
+          <div class="card-body" style="background:transparent;">
+            <h5 class="card-title">Analyze Text</h5>
+            <p class="card-text">Pass a Query String to Analyze and Identify if its a Hate Text or Non-Hate</p>
+            <p class="card-text"><small class="text-muted">...</small></p>
+          </div>
+      </div>
+    </button>
+    <button type="button" name="button" id="button_audio_classifier" class="submit_button" >
+      <div class="card"  style="background:transparent;">
+        <div class="card-body"  style="background:transparent;">
+          <h5 class="card-title">Analyze Audio</h5>
+          <p class="card-text">Upload a audio file to Analyze and Identify if its a Hate Text or Non-Hate</p>
+          <p class="card-text"><small class="text-muted">...</small></p>
+        </div>
+      </div>
+    </button>
+    <button type="button" name="button" id="button_video_classifier" class="submit_button" >
+      <div class="card" style="background:transparent;">
+        <div class="card-body" style="background:transparent;">
+          <h5 class="card-title">Analyze Video</h5>
+          <p class="card-text">Upload a video file to Analyze and Identify if its a Hate Text or Non-Hate</p>
+          <p class="card-text"><small class="text-muted">...</small></p>
+        </div>
+      </div>
+    </button>
+  </div>
+
+
+
+
+
+  <div id="div_text" class="container-fluid py-5" style="display:none;">
+    <form action="service_classify_text" method="post">
+      <h2 class="display-5 fw-bold">Enter The Search Query to Identify as Hate or Non-Hate Content</h2>
+      <div class="form-floating">
+        <textarea class="form-control" name="query_text" placeholder="Enter The Search Query to Identify as Hate or Non-Hate Content" id="floatingTextarea2" style="height: 100px"></textarea>
+        <label for="floatingTextarea2">Type Here</label>
+      </div>
+      <br>
+
+      <button id="submit_button_id" class="btn btn-primary btn-lg" name="submit_btn" type="submit" value="submit_text">Analyze Text</button>
+      <br>
+      <label for="lang">Select Language</label>
+      <select class="form-select" aria-label="Default select example" required name="lang" style="max-width:380px;margin-top:20px">
+        <option selected value="en">English</option>
+        <option value="hi">Hindi</option>
+      </select>
+      <br>
+      <div id="loading_div" class="" style="display:none;">
+        <div class="spinner-grow text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-secondary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-success" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-danger" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-warning" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-info" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-light" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-dark" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+      <br>
+
+
+      <br>
+
+    </form>
+  </div>
+
+
+  <div id="div_audio" class="container-fluid py-5" style="display:none;">
+    <form action="upload_audio" method="POST" enctype="multipart/form-data">
+      <h2 class="display-5 fw-bold">Analyze Audio File to Identify if Hateful or Non-Hateful</h2>
+      <div>
+        <label for="formFileLg" class="form-label">Upload an Audio File (in .wav format only)</label>
+        <input id="aud_file" class="form-control form-control-lg" id="formFileLg" type="file" name="query_audio"  onchange="return fileValidation()" required>
+      </div>
+      <br>
+
+      <button id="submit_button_id" class="btn btn-primary btn-lg" name="submit_btn" type="submit" value="submit_audio">Analyze Audio</button>
+      <select class="form-select" aria-label="Default select example" name="lang" style="max-width:380px;margin-top:20px" required hidden>
+        <option selected value="none">Select Language</option>
+        <option value="en">English</option>
+        <option value="hi">Hindi</option>
+      </select>
+      <br>
+      <div id="loading_div" class="" style="display:none;">
+        <div class="spinner-grow text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-secondary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-success" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-danger" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-warning" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-info" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-light" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-dark" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+      <br>
+
+
+      <br>
+
+    </form>
+  </div>
+  <script>
+        function fileValidation() {
+            var fileInput =
+                document.getElementById('aud_file');
+
+            var filePath = fileInput.value;
+
+            // Allowing file type
+            var allowedExtensions =
+                    /(\.wav)$/i;
+
+            if (!allowedExtensions.exec(filePath)) {
+                alert('Invalid file type! Please upload .wav file only.');
+                fileInput.value = '';
+                return false;
+            }
+        }
+    </script>
+
+
+  <div id="div_video" class="container-fluid py-5" style="display:none;">
+
+    <h2 class="display-5 fw-bold">Analyze Video File to Identify if Hateful or Non-Hateful</h2>
+    <h4 class="display-7 fw-bold">Option-1: File Upload</h2>
+    <form action="upload_video" method="post" enctype="multipart/form-data">
+      <div>
+        <label for="formFileLg" class="form-label">Upload an Video File (in .mp4 format only)</label>
+        <input class="form-control form-control-lg" id="vid_file" type="file" name="query_video" required onchange="return fileValidation_vid()">
+      </div>
+      <br>
+
+      <button id="submit_button_id" class="btn btn-primary btn-lg" name="submit_btn" type="submit" value="submit_video">Analyze Uploaded Video</button>
+      <select class="form-select" aria-label="Default select example" required name="lang" style="max-width:380px;margin-top:20px" hidden>
+        <option selected value=" ">Select Language</option>
+        <option value="en">English</option>
+        <option value="hi">Hindi</option>
+      </select>
+      <br>
+      <div id="loading_div" class="" style="display:none;">
+        <div class="spinner-grow text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-secondary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-success" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-danger" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-warning" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-info" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-light" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-dark" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+      <br>
+
+    </form>
+    <script>
+          function fileValidation_vid() {
+              var fileInput =
+                  document.getElementById('vid_file');
+
+              var filePath = fileInput.value;
+
+              // Allowing file type
+              var allowedExtensions =
+                      /(\.mp4)$/i;
+
+              if (!allowedExtensions.exec(filePath)) {
+                  alert('Invalid file type! Please upload .mp4 file only.');
+                  fileInput.value = '';
+                  return false;
+              }
+          }
+      </script>
+    <h4 class="display-7 fw-bold">Option-2: Youtube Video</h2>
+    <form action="analyze_youtube_video" method="post">
+      <div>
+        <label for="formFileLg" class="form-label">Enter a Youtube Video URL</label>
+        <input class="form-control form-control-lg" id="formFileLg" type="text" name="query_video" required>
+      </div>
+      <br>
+
+      <button id="submit_button_id" class="btn btn-primary btn-lg" name="submit_btn" type="submit" value="submit_video">Analyze Youtube Video</button>
+      <select class="form-select" aria-label="Default select example" required name="lang" style="max-width:380px;margin-top:20px" hidden>
+        <option selected value=" ">Select Language</option>
+        <option value="en">English</option>
+        <option value="hi">Hindi</option>
+      </select>
+      <br>
+      <div id="loading_div" class="" style="display:none;">
+        <div class="spinner-grow text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-secondary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-success" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-danger" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-warning" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-info" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-light" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-dark" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+      </form>
+      <br>
+      <h4 class="display-7 fw-bold">Option-3: Youtube Search</h2>
+      <form action="/analyze_youtube_query" method="post">
+        <div>
+          <label for="formFileLg" class="form-label">Enter a Query to Search on Youtube</label>
+          <input class="form-control form-control-lg" id="formFileLg" type="text" name="query_video" required>
+        </div>
+        <div>
+          <label for="formFileLg" class="form-label">Enter Number of Results to Evaluate</label>
+          <input class="form-control form-control-lg" id="formFileLg" type="number" name="count_results" required value="1">
+        </div>
+        <br>
+
+        <button id="submit_button_id" class="btn btn-primary btn-lg" name="submit_btn" type="submit" value="submit_video">Search Youtube Videos</button>
+        <select class="form-select" aria-label="Default select example" required name="lang" style="max-width:380px;margin-top:20px" hidden>
+          <option selected value=" ">Select Language</option>
+          <option value="en">English</option>
+          <option value="hi">Hindi</option>
+        </select>
+        <br>
+        <div id="loading_div" class="" style="display:none;">
+          <div class="spinner-grow text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-grow text-secondary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-grow text-success" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-grow text-danger" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-grow text-warning" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-grow text-info" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-grow text-light" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-grow text-dark" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+        </form>
+
+  </div>
+
+<button type="button" name="button" id="button_go_back" class="submit_button btn btn-primary btn-lg"  style="display:none;">Go Back</button>
+
+
+</div>
+
+
+<script>
+    const menu_div = document.getElementById("div_select_menu");
+    const text_div = document.getElementById("div_text");
+    const audio_div = document.getElementById("div_audio");
+    const video_div = document.getElementById("div_video");
+
+    const text_btn = document.getElementById("button_text_classifier");
+    const audio_btn = document.getElementById("button_audio_classifier");
+    const video_btn = document.getElementById("button_video_classifier");
+    const back_btn = document.getElementById("button_go_back");
+    text_btn.onclick = function () {
+      if (menu_div.style.display !== "none") {
+        menu_div.style.display = "none";
+        back_btn.style.display = "block";
+        text_div.style.display = "block";
+      } else {
+        menu_div.style.display = "block";
+        back_btn.style.display = "none";
+        text_div.style.display = "none";
+      }
+    };
+    audio_btn.onclick = function () {
+      if (menu_div.style.display !== "none") {
+        menu_div.style.display = "none";
+        back_btn.style.display = "block";
+        audio_div.style.display = "block";
+      } else {
+        menu_div.style.display = "block";
+        back_btn.style.display = "none";
+        audio_div.style.display = "none";
+      }
+    };
+    video_btn.onclick = function () {
+      if (menu_div.style.display !== "none") {
+        menu_div.style.display = "none";
+        back_btn.style.display = "block";
+        video_div.style.display = "block";
+      } else {
+        menu_div.style.display = "block";
+        back_btn.style.display = "none";
+        video_div.style.display = "none";
+      }
+    };
+    back_btn.onclick = function () {
+      menu_div.style.display = "block";
+      text_div.style.display = "none";
+      audio_div.style.display = "none";
+      video_div.style.display = "none";
+      back_btn.style.display = "none";
+    };
+</script>
+
+
+
+
+
+<script>
+    const targetDiv = document.getElementById("loading_div");
+    const btn = document.getElementById("submit_button_id");
+    btn.onclick = function () {
+      if (targetDiv.style.display !== "none") {
+        targetDiv.style.display = "none";
+      } else {
+        targetDiv.style.display = "block";
+      }
+      if (document.getElementById("hashtag_input_id").value.trim() == "") {
+           alert("Please Enter Trend!");
+           return false;
+      }
+    };
+</script>
+
+
+{% endblock %}

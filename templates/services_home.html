@@ -1,0 +1,64 @@
+{% extends 'services_base.html' %}
+{% block title %}
+Services
+{% endblock %}
+
+{% block service_content %}
+<div class="p-5 mb-4 bg-light rounded-3">
+  <div class="container-fluid py-5">
+      <h2 class="display-5 fw-bold">Welcome to HateBurst</h2>
+      <h5 class="display-7 fw-bold">Towards a Hate-Free World</h2>
+  </div>
+  <div class="container-fluid py-5">
+    <img src="{{url_for('static', filename='images/Parul_IR_Project_D1.drawio.png')}}" class="img-fluid rounded mx-auto d-bloc" alt="Responsive image">
+    <p>HateBurst uses text classification machine learning models to identify if a given text is hateful or not. HateBurst implements several wrapper features, that use this
+    classifier at the code for their implementation. Such as:</p>
+    <ul>
+      <li><strong>Twitter User Analytics:</strong> Allows the user to analyze profile of any twitter user by taking in just the username of the twitter profile. The insights presented using the charts and result helps to identify,
+      if a twitter in general posts lots of hateful content or not, the average number of likes a hateful tweet receives vs a non-hateful one helps to identify the nature of the people who interact with that user.
+    Other insights such as the most common words used and hashtags used in hateful tweets help identify the topic/idea that the user usually talks about, location helps to identify the locality of the user's tweets and relevance of the tweet with respect to a location.
+  </li>
+  <li><strong>Twitter Trends Anaytics:</strong> It brings very similar results to TwitterUserAnalytics, just that instead of analyzing a single person, a trending topic could be analyzed on the whole, like if a trending topic is something for which usually hate tweets are posted,
+  this can help stop spreading of fake news as well, since if some fake news gets trending and receives lots of hateful tweets, the trend can be manually verified and be stopped from spreading further. It also provides a list of currently tredning topics in india, for the user to analyze.</li>
+  <li><strong>HateCheck:</strong> It allows the user to check whether a video, audio or text is hateful or not, there are several features in video hate check as well, which are described in later section, along with implementation details.</li>
+    </ul>
+    <p>Apart from these, same features are also exposed as a free to use REST API Services, that could be easily used by any developer or person in their projects to identify and remote hateful content from their platform.</p>
+  </div>
+  <div class="container-fluid py-5">
+    <img src="{{url_for('static', filename='images/Parul_IR_Project_D2.drawio.png')}}" class="img-fluid rounded mx-auto d-bloc" alt="Responsive image">
+    <p>The way <strong>Twitter User Analytics </strong>work is; it takes in a twitter username as input, and uses the Twitter Developer API to access the entire timeline for that user, and pass those tweets to a trained LSTM classifier, our model currently supports two languages, i.e., Hindi and English.
+    Based on the language of the tweet, respective classifier is called and used to generate the predictions whether the ith tweet is hateful or non-hateful, based on these predictions and other associated data with the tweets, several insights are presented to the user.</p>
+  </div>
+  <div class="container-fluid py-5">
+    <img src="{{url_for('static', filename='images/Parul_IR_Project_D3.drawio.png')}}" class="img-fluid rounded mx-auto d-bloc" alt="Responsive image">
+    <p>The <strong>Twitter Trends Analytics </strong>is quite similar to Twittter User Analytics, its just that, analyzing trends helps understanding a trending topic. The way the web version works is that, the user is presented with the currently tredning topics in India, the user can select one of those
+    or may enter one trending query/word of their own, they should also pick the data since when the tweets should be considered, and the number of tweets that must be analyzed. Note that more tweets = more processing time. </p>
+  </div>
+  <div class="container-fluid py-5">
+    <img src="{{url_for('static', filename='images/Parul_IR_Project_D4.drawio.png')}}" class="img-fluid rounded mx-auto d-bloc" alt="Responsive image">
+    <p>There are two different models trained on two different datasets, i.e. English and Hindi dataset. Both the models use LSTM algorithm for generating the predictions. Before passing the data from the dataset, the data is pre-proceseed to remove any hashtag, stop-words or special characters.</p>
+  </div>
+  <div class="container-fluid py-5">
+    <img src="{{url_for('static', filename='images/Parul_IR_Project_D5.drawio.png')}}" class="img-fluid rounded mx-auto d-bloc" alt="Responsive image">
+    <p>For the Video Classsification; first, audio is extracted from the video, after which text is extracted from audio, and finally the text classifier is used to identify if the video content is hateful or not.
+      </p>
+  </div>
+  <div class="container-fluid py-5">
+    <img src="{{url_for('static', filename='images/Parul_IR_Project_D6.drawio.png')}}" class="img-fluid rounded mx-auto d-bloc" alt="Responsive image">
+    <p>The Hate Check Module for Videos has three different options:</p>
+  <ul>
+    <li><strong>Upload a video: </strong>The user must upload a mp4 format video, which would be analyzed for being hateful or non-hateful.</li>
+    <li><strong>Pass a youtube video link: </strong>The passed video link will be used to download the youtube video and then analyze it for being hateful or non-hateful.</li>
+    <li><strong>Search a query on youtube and analyze results: </strong>This feature allows to search for anything on youtube and analyze the top K(K is entered by user) results for being hateful or non-hateful. </li>
+  </ul>
+  </div>
+  <div class="container-fluid py-5">
+    <img src="{{url_for('static', filename='images/Parul_IR_Project_D7.drawio.png')}}" class="img-fluid rounded mx-auto d-bloc" alt="Responsive image">
+    <p>Apart from video analysis, the hateburst website also allows for <strong>audio analysis</strong>, where the user can upload an audio in .wav format and identify if the audio contains hateful or non-hateful contents, for audio analysis, first the audio is converted to text and then trained text classifier is used.</p>
+  </div>
+  <div class="container-fluid py-5">
+    <img src="{{url_for('static', filename='images/Parul_IR_Project_D8.drawio.png')}}" class="img-fluid rounded mx-auto d-bloc" alt="Responsive image">
+    <p>Our platform provides REST API Web Services, so that any developer can easily integrate our work into their platforms/projects to identify and remove hateful content. The service is provided with registeration and for free. So features that are provided over the web, can also be used via a REST Service.</p>
+  </div>
+</div>
+{% endblock %}

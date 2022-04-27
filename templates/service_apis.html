@@ -1,0 +1,275 @@
+{% extends 'services_base.html' %}
+
+{% block title %}
+APIs
+{% endblock %}
+
+<style>
+.method{
+
+}
+</style>
+
+{% block service_content %}
+
+<h1 class="display-5 fw-bold">Our Service APIs</h1>
+<p class="col-md-8 fs-4">Use these APIs for identifying Hateful and Non-Hateful content. You can integrate them in your personal or commercial projects to filter hateful content for a better; hate-less world.</p>
+
+
+
+
+
+
+<div class="p-5 mb-4 bg-light rounded-3">
+  <div class="container-fluid py-5">
+    <ul class="list-group">
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div class="table-responsive">
+          <table class="table table-striped table-hover">
+            <tr>
+              <th class="method">GET</th>
+              <th>/api/service_classify_text</th>
+            </tr>
+            <tr>
+              <th>Description</th>
+              <td>Takes a query string, and identifies it as either Hateful or Non-Hateful.</td>
+            </tr>
+            <tr>
+              <th>Parameters</th>
+              <td>string: query</td>
+            </tr>
+            <tr>
+              <th>Response Body</th>
+              <td>{ <br>
+                    prediction: Whether the Query string is  Hateful or Non-Hateful, <br>
+                    response_code: Code of Response,<br>
+                    response_status: Message of Response, <br>
+                  }
+              </td>
+            </tr>
+            <tr>
+              <th colspan="2">Errors</th>
+            </tr>
+            <tr>
+              <td>900</td>
+              <td>OK</td>
+            </tr>
+            <tr>
+              <td>901</td>
+              <td>No argument provide</td>
+            </tr>
+            <tr>
+              <th>Example</th>
+              <td>/api/service_classify_text?query="you should die"</td>
+            </tr>
+          </table>
+        </div>
+      </li>
+
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div class="table-responsive">
+          <table class="table table-striped table-hover">
+            <tr>
+              <th class="method">GET</th>
+              <th>/api/twitter_user_analytics/{attribute}</th>
+            </tr>
+            <tr>
+              <th>Description</th>
+              <td>Takes a twitter username, and provides several insights(attributes) about the posts by that user.</td>
+            </tr>
+            <tr>
+              <th colspan="2">Parameters</th>
+            </tr>
+            <tr>
+              <td>string: username</td>
+              <td>Twitter username of the Person</td>
+            </tr>
+            <tr>
+              <th colspan="2">Attributes</th>
+            </tr>
+            <tr>
+              <td>counts_pos</td>
+              <td>Number of Non-Hateful Tweets</td>
+            </tr>
+            <tr>
+              <td>counts_neg</td>
+              <td>Number of Hateful Tweets</td>
+            </tr>
+            <tr>
+              <td>tweet_count</td>
+              <td>Number of Tweets Analyzed</td>
+            </tr>
+            <tr>
+              <td>average_likes_hate</td>
+              <td>Average Number of Likes on the User's Hateful Tweets that are analyzed</td>
+            </tr>
+            <tr>
+              <td>average_likes_no_hate</td>
+              <td>Average Number of Likes on the User's Non-Hateful Tweets that are analyzed</td>
+            </tr>
+            <tr>
+              <td>hashtags_hate</td>
+              <td>Hashtags used in Hateful Tweets</td>
+            </tr>
+            <tr>
+              <td>most_common_words_hate</td>
+              <td>Most Common Words in Hateful Tweets</td>
+            </tr>
+            <tr>
+              <td>most_common_locations</td>
+              <td>Most Common Location in Hateful Tweets</td>
+            </tr>
+            <tr>
+              <td>dataframe</td>
+              <td>The python pandas dataframe of the tweets with several attributes</td>
+            </tr>
+            <tr>
+              <th>Response Body</th>
+              <td>{ <br>
+                    (attribute): The value of that attribute, <br>
+                    response_code: Code of Response,<br>
+                    response_status: Message of Response, <br>
+                  }
+              </td>
+            </tr>
+            <tr>
+              <th colspan="2">Errors</th>
+            </tr>
+            <tr>
+              <td>900</td>
+              <td>OK</td>
+            </tr>
+            <tr>
+              <td>901</td>
+              <td>No argument provide</td>
+            </tr>
+            <tr>
+              <td>902</td>
+              <td>Username Doesn't Exists</td>
+            </tr>
+            <tr>
+              <td>903</td>
+              <td>Invalid Attribute</td>
+            </tr>
+            <tr>
+              <th>Example</th>
+              <td>/api/twitter_user_analytics/most_common_words_hate?username="parul_jain"</td>
+            </tr>
+          </table>
+        </div>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div class="table-responsive">
+          <table class="table table-striped table-hover">
+            <tr>
+              <th class="method">GET</th>
+              <th>/api/twitter_trends_analytics/{attribute}</th>
+            </tr>
+            <tr>
+              <th>Description</th>
+              <td>Takes a twitter trend(hashtag), and provides several insights(attributes) about the posts with that trend(hashtag).</td>
+            </tr>
+            <tr>
+              <th colspan="2">Parameters</th>
+            </tr>
+            <tr>
+              <td>string: trend</td>
+              <td>Twitter trend(hashtag)</td>
+            </tr>
+            <tr>
+              <td>string: date</td>
+              <td>Date since when the tweets should be analyzed, in strict format "yyyy-mm-dd"</td> <!-- TODO: handle exception and response code if invalid date format -->
+            </tr>
+            <tr>
+              <td>string: count_tweets</td>
+              <td>Number of tweets that must be analyzed, should be greater than or equal to 1.</td> <!-- TODO: Handle if less than 1 -->
+            </tr>
+            <tr>
+              <th colspan="2">Attributes</th>
+            </tr>
+            <tr>
+              <td>counts_pos</td>
+              <td>Number of Non-Hateful Tweets</td>
+            </tr>
+            <tr>
+              <td>counts_neg</td>
+              <td>Number of Hateful Tweets</td>
+            </tr>
+            <tr>
+              <td>tweet_count</td>
+              <td>Number of Tweets Analyzed</td>
+            </tr>
+            <tr>
+              <td>average_likes_hate</td>
+              <td>Average Number of Likes on the User's Hateful Tweets that are analyzed</td>
+            </tr>
+            <tr>
+              <td>average_likes_no_hate</td>
+              <td>Average Number of Likes on the User's Non-Hateful Tweets that are analyzed</td>
+            </tr>
+            <tr>
+              <td>hashtags_hate</td>
+              <td>Hashtags used in Hateful Tweets</td>
+            </tr>
+            <tr>
+              <td>most_common_words_hate</td>
+              <td>Most Common Words in Hateful Tweets</td>
+            </tr>
+            <tr>
+              <td>most_common_locations</td>
+              <td>Most Common Location in Hateful Tweets</td>
+            </tr>
+            <tr>
+              <td>dataframe</td>
+              <td>The python pandas dataframe of the tweets with several attributes</td>
+            </tr>
+            <tr>
+              <th>Response Body</th>
+              <td>{ <br>
+                    (attribute): The value of that attribute, <br>
+                    response_code: Code of Response,<br>
+                    response_status: Message of Response, <br>
+                  }
+              </td>
+            </tr>
+            <tr>
+              <th colspan="2">Errors</th>
+            </tr>
+            <tr>
+              <td>900</td>
+              <td>OK</td>
+            </tr>
+            <tr>
+              <td>901</td>
+              <td>No argument provide</td>
+            </tr>
+            <tr>
+              <td>903</td>
+              <td>Invalid Attribute</td>
+            </tr>
+            <tr>
+              <td>904</td>
+              <td>Date Argument Missing</td>
+            </tr>
+            <tr>
+              <td>905</td>
+              <td>Tweet Count Argument Missing</td>
+            </tr>
+            <tr>
+              <td>906</td>
+              <td>Tweet Count Invalid</td>
+            </tr>
+            <tr>
+              <th>Example</th>
+              <td>/api/twitter_trends_analytics/most_common_words_hate?trend=ipl&date=2022-04-13&count_tweets=10</td>
+            </tr>
+          </table>
+        </div>
+      </li>
+    </ul>
+
+  </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'services_base.html' %}
+
+{% block title %}
+Audio Result
+{% endblock %}
+
+{% block service_content %}
+
+<div class="p-5 mb-4 bg-light rounded-3">
+  <div class="container-fluid py-5">
+      <p> {{ prediction[0] }} </p>
+      <h2 class="display-5 fw-bold">{{ prediction[1] }}</h2>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,8 @@
+env/**
+*.part
+*.mp4
+*.wav
+*.webm
+*.mkv
+__pycache__
+*.part
