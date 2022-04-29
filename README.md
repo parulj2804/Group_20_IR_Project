@@ -23,7 +23,7 @@
    1. For Windows:
 
       ```
-      $ ./env/Scripts/activate
+      $ source ./env/Scripts/activate
       ```
 
 7.  Install Dependencies
